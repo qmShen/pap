@@ -1,0 +1,144 @@
+\section{Experimental Evaluation}\label{sec:exp}
+We evaluate our techniques on two real-world datasets, i.e., \pt{} and \sz{}. The trajectory dataset of \pt{}~\cite{pt} has 2.39 million of taxi trajectories, 75.67 million of GPS points in total, its maximum trajectory length is 3,490 GPS points. \sz{}~\cite{sz} includes 3.07 million of taxi trajectories with 53.53 GPS points, the maximum trajectory in it has 2,268 GPS points.
+For the sake of page limitation, we briefly present the case of \pt{} in section~\ref{sec:case}, and refer the interested reader to our technical report \cite{techreport} for more cases of \pt{} and \sz{}.
+
+% The trajectories in \pt{} cover several cities around the Porto. 
+We then conduct a user study to demonstrate the superiority of our proposal in three real world applications in Section~\ref{sec:user}.
+Last, we perform a qualitative evaluation in Section~\ref{sec:quality}.
+All experiments are conducted on a machine with Intel i7-8700, 3.2 GHertz CPU, 24 GBytes memory and NVIDIA GeForce GTX1080, 8 GHertz VRAM GPU, running on Windows 10.
+We implemented all methods in Java 1.8. The methods call on the Processing 3~\cite{p3} for rendering.
+% and has been cleaned for further analysis.
+
+% In Section~\ref{sec:case}, we evaluate the effectiveness of our proposal by the case studies on \pt{} and \sz{} trajectory dataset, respectively.
+% We then conduct a user study to demonstrate the superiority of our proposal in three real world applications in Section~\ref{sec:user}.
+% Last, we perform a qualitative evaluation in Section~\ref{sec:quality} at last.
+% We conducted all experiments on a machine with Intel i7-8700, 3.2 GHertz CPU, 24 GBytes memory and NVIDIA GeForce GTX1080, 8 GHertz VRAM GPU, running on Windows 10.
+% We implemented all methods in Java 1.8. The methods call on the Processing 3~\cite{p3} for rendering.
+
+
+\subsection{Case Study on Porto}\label{sec:case}
+% We demonstrate the effectiveness of our proposal by the case studies in \pt{} in Section~\ref{sec:pt} and \sz{} {in Section~\ref{sec:sz}}.
+
+% \subsubsection{Case Studies on \pt{}}\label{sec:pt}
+%For the sake of page limitation, we omit the detail elaboration of the cases in Figure~\ref{fig:teaser} and refer the interested reader to our technical report~\cite{techreport}.
+%In this section, we present the effectiveness of our proposals with different detail views by investigating three regions of interest in \pt{}, as R1, R2, and R3 shown in Figure~\ref{fig:porto}(A).
+
+We elaborate the cases in Figure~\ref{fig:teaser} to illustrate the effectiveness of our proposal from the following three aspects.
+
+
+\stitle{Effect of approaches with different zoom-levels}
+Considering zoom level 11, Figure~\ref{fig:teaser}(A) is the visualization result of full \pt{} trajectory dataset.
+Given the sampling rate $\alpha = 1\%$, Figure~\ref{fig:teaser}(C) and (E) visualized the returning results of uniform random sampling algorithm ($\rand$)
+and our advanced visual fidelity guaranteed sampling approach ($\avats$, see Algorithm~\ref{alg:plus}), respectively.
+Obviously, Figure~\ref{fig:teaser}(E) looks much more closer to Figure~\ref{fig:teaser}(A) when comparing with Figure~\ref{fig:teaser}(C).
+In particular, our proposed $\avats$ not only preserves the visual structure of the full dataset,
+but also shows the details of these cities which are far away from the center, as the dashed cycles shown in Figure~\ref{fig:teaser}(E).
+However, the details of these dashed cycles in Figure~\ref{fig:teaser}(C), i.e., the returning result from $\rand{}$, are lost.
+This issue turns more serious when we zoom in to the details of the visualization results.
+Figure~\ref{fig:teaser}(H) and (I) are the visualization result of $\rand$ and $\avats$  (with color encoding) at zoom level 15 with sampling rate $\alpha=1\%$.
+Comparing with the visualization result of full dataset at such level, as shown in Figure~\ref{fig:teaser}(G),
+the $\rand{}$ in Figure~\ref{fig:teaser}(H) only returns few trajectories and many information in raw data are lost.
+Surprisingly, our $\avats$ in Figure~\ref{fig:teaser}(I) captures the main sketch of the full dataset, even with more clear details with the help of color encoding.
+
+\stitle{Effect of sampling rate}
+We then evaluate the effect of sampling rate in different approaches.
+Figure~\ref{fig:teaser}(B) and (C) are the visualization results of $\rand{}$ with sampling rate $0.1\%$ and $1\%$, respectively.
+Figure~\ref{fig:teaser}(D) and (E) visualized the returning trajectory sets of our $\avats{}$ with sampling rate $0.1\%$ and $1\%$, respectively.
+We then have the following observations:
+(i) the larger sampling rate, the better visual fidelity of the visualization results, e.g.,
+Figure~\ref{fig:teaser}(C) and (E) are more closer to Figure~\ref{fig:teaser}(A) when comparing with Figure~\ref{fig:teaser}(B) and (D), respectively;
+(ii) the visualization result of $\avats$ with sampling rate $0.1\%$ in Figure~\ref{fig:teaser}(D)
+performs even more better than the result of $\rand{}$ with sampling rate $1\%$ in Figure~\ref{fig:teaser}(C) to capture the visual structure of the full dataset in Figure~\ref{fig:teaser}(A).
+
+
+\stitle{Effect of color encoding}
+% Next, we present the superiority of color encoding scheme in $\avats$, which denotes as $\cavats$ in subsequent sections.
+\QM{Given zoom level 11 and sampling rate $1\%$, Figure~\ref{fig:teaser}(E) and (F) are the visualization results of our $\avats$ and $\cavats$ (i.e., $\avats$ with color encoding), respectively.
+It is worth to point out the visual clutter in the visualization result generated by full dataset and $\avats$ are serious, as shown in the embedded rectangles of  Figure~\ref{fig:teaser}(A, E).
+However, the visualized result of $\cavats$ in Figure~\ref{fig:teaser}(F) reduces the visual clutter by encoding the trajectory distribution by color, which provides a clear visual structure of the input dataset. 
+In addition, the comparison of the visualized results in Figure~\ref{fig:teaser}(G) and (I) confirms the effectiveness of our proposed color encoding scheme for visual clutter in large dataset again.}
+%\begin{figure*}
+%	\centering
+%	\includegraphics[width=0.85\textwidth]{pictures/experiment_study/case_porto.pdf}
+%	\vspace{-3mm}
+%	\caption{Effectiveness studies of $\avats$ at dense and sparse regions with detail visualizations in \pt{}.}
+%	\label{fig:porto}
+%    \vspace{-3mm}
+%\end{figure*}
+%
+%\stitle{Sparse region R1}
+%R1 is a sparse region and has few trajectories, as the visualization result of full \pt{} dataset shown in Figure~\ref{fig:porto}(B1).
+%The reason is the two cities Paredes and Penafiel in R1 are far away from the center of Porto.
+%Given sampling rate $\alpha=0.5\%$, Figure~\ref{fig:porto}(B2), (B3) and (B4) are the visualization results of the returning trajectory set from $\rand{}$, $\vats$ and $\avats$ with $\delta=64$, respectively.
+%As our above statement, the result of $\rand$ almost misses all information in sparse region.
+%While $\vats$ performs much better than $\rand$ as it provides theoretical visual fidelity guarantee, but it still lost detail information.
+%Taking Figure~\ref{fig:porto}(B1) as reference, the trajectory bundle and trajectory structure are lost in Figure~\ref{fig:porto}(B3$a$) and (B3$b$).
+%As expected, our advanced approach $\avats$ in Figure~\ref{fig:porto}(B4) with perception tolerance value $\delta=64$ did an excellent job to capture the details in the full dataset when comparing with $\vats$ in Figure~\ref{fig:porto}(B3).
+%As shown in Figure~\ref{fig:porto}(B4$b$), the trajectory sketch of Penafiel is almost the same as it in Figure~\ref{fig:porto}(B1$b$), the visualized result of full dataset.
+%
+%\stitle{Median region R2} It is near to the center of Porto, which has more taxi trajectories than R1, see Figure~\ref{fig:porto}(A).
+%As noted in Figure~\ref{fig:porto}(C1), R2 includes three cities: Ermesinde, Rio Tinto and Valongo.
+%Figure~\ref{fig:porto}(C2) and (C3) visualized the returning result of $\avats$ with perception tolerance value $\delta=4$ and $64$, respectively.
+%Visually, Figure~\ref{fig:porto}(C3) has more trajectory branch details than Figure~\ref{fig:porto}(C2), as the rectangles $c$ and $d$ shown in them.
+%Figure~\ref{fig:porto}(C4) is the result of $\cavats$, i.e., it colors the trajectories by their representativeness.
+%Intuitively, Figure~\ref{fig:porto}(C4) shows its superiority over Figure~\ref{fig:porto}(C3) to capture the trajectory distributions.
+%For example, the color of the region $f$ in Figure~\ref{fig:porto}(C4) is {darker} than the rest two regions $e$ and $g$.
+%Thus, we can conclude Rio Tinto (region $f$) has more taxi trajectories than other two cities, which is hard to be concluded via Figure~\ref{fig:porto}(C3), even Figure~\ref{fig:porto}(C1), the visualization result of full dataset.
+%It verified that the color encoding scheme could enrich the visual information in large trajectory visualization.
+%
+%\stitle{Dense region R3} It is the center of Porto, which has the highest concentration of the trajectories and causes serious visual clutter, as visualized in Figure~\ref{fig:porto}(D1).
+%For example, the structure of trajectories in Figure~\ref{fig:porto}(D1$i$) is unclear.
+%$\avats$ with $\delta=4$ alleviates the visual clutter and preserves the trajectory distribution, see Figure~\ref{fig:porto}(D2).
+%Figure~\ref{fig:porto}(D3) visualized the result of $\avats$ with $\delta=64$, which enhances the visual fidelity of Figure~\ref{fig:porto}(D2).
+%Specifically, it preserves more details (see rectangle $h$) and has a more clear structure in the {densest} region (see rectangle $i$).
+%Visually, Figure~\ref{fig:porto}(D4) is the best among these four visualization results.
+%It confirms the advantages of color encoding scheme in $\cavats$.
+
+% \subsubsection{Case Studies on \sz}\label{sec:sz}
+% We further evaluate the effectiveness of our approaches by using the taxi trajectories in Shenzhen, China.
+% The \sz{} trajectory dataset has many different characteristics with \pt{}, e.g., trajectory distribution, city centers, and taxi move patterns.
+% We set sampling rate $\alpha=1\%$ and perception tolerance value $\delta = 64$ in this section.
+
+% \begin{figure*}[t]
+% 	\centering
+% 	\includegraphics[width=0.85\textwidth]{pictures/experiment_study/case_shenzhen.pdf}
+% 	\vspace{-4mm}
+% 	\caption{Case studies on \sz{} taxi trajectory dataset, sampling rate $\alpha = 1\%$.}
+% 	\label{fig:shenzhen}
+%     \vspace{-3mm}
+% \end{figure*}
+
+% \stitle{Overview of Shenzhen}
+% Figure~\ref{fig:shenzhen}(A) is the visualization result of full \sz{} dataset at zoom level 11.
+% The dense regions in southern of Shenzhen, as the dashed circles shown in Figure~\ref{fig:shenzhen}(A), are \emph{Baoan, Nanshan, Futian} and \emph{Luohu} districts,
+% which are the most prosperous commercial regions in this city.
+% The returning results of $\rand$, $\avats$ and $\cavats$ are visualized in Figure~\ref{fig:shenzhen}(B), (C) and (D), respectively.
+% Not surprisingly,  the visualized result of $\rand$ in Figure~\ref{fig:shenzhen}(B) is quite different from the full dataset in Figure~\ref{fig:shenzhen}(A).
+% $\avats$ in Figure~\ref{fig:shenzhen}(C) shows it superiority by capturing the overview of \sz{} dataset and even preserves the isolated trajectories,
+% as highlighted in left-upper corner of Figure~\ref{fig:shenzhen}(C).
+% It owes to $\avats$ provides theoretical visual fidelity guarantees on the returning result set.
+% $\avats$ with color encoding $\cavats$ further improved the visual fidelity of $\avats$.
+% Specifically, both Figure~\ref{fig:shenzhen}(A) and (C) are suffering from visual clutter seriously,
+% e.g., it is unable to recognize the main roads in the circles $a$ and $b$ as both are full with trajectories.
+% However, the result of $\avats$ with color encoding, as shown in Figure~\ref{fig:shenzhen}(D), reduce the visual clutter perfectly.
+% For example, it is clear that the main roads of circle a and b are these roads with {darker} colors in Figure~\ref{fig:shenzhen}(D).
+
+% We then present the advantages of our $\avats$ in two representative areas, i.e., airport and North railway station, in \sz{} dataset.
+
+% \stitle{Airport in Shenzhen}
+% Comparing with visualization result of full dataset in Figure~\ref{fig:shenzhen}(E),
+% the visualized result of $\rand$ in Figure~\ref{fig:shenzhen}(F) only includes very few trajectories.
+% both $\avats$ and $\cavats$ (see Figure~\ref{fig:shenzhen}(G) and (H)) reserve the major structure of the airport area excellent.
+% Moreover, $\cavats$ provides richer information by computing the representativeness of trajectories.
+% For example, the taxi trajectories which pass through G4 and G104 is more than that in Baoan Avenue.
+% The reason is that the colors of G4 and G104 is {darker} than Baoan Avenue, as highlighted in Figure~\ref{fig:shenzhen}(H).
+
+% \stitle{North railway station in Shenzhen}
+% We next investigate the visualizations of the full dataset, uniform random sampling result set, and visual fidelity guaranteed sampling result set around North railway station of Shenzhen, which are shown from Figure~\ref{fig:shenzhen}(I) to (L).
+% Interestingly, $\avats$ and $\cavats$ visualized the overpass near North railway state clearly, as circle $c$ shown in both Figure~\ref{fig:shenzhen}(K) and (L).
+% Due to visual clutter, the overpass is not clear in Figure~\ref{fig:shenzhen}(I), which visualized the full dataset.
+% It even disappeared in the visualized result of $\rand$ in Figure~\ref{fig:shenzhen}(G).
+% Moreover, it is easy to compare the traffic flows in different roads via $\cavats$ visualization result.
+% For example, the road G94 has a higher road traffic flow than the Minzhi Avenue and Meilong Avenue, as different colors shown in Figure~\ref{fig:shenzhen}(L).
+
+\input{sections/Evaluation_user_study.tex}

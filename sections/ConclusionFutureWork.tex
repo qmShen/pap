@@ -1,0 +1,21 @@
+\section{Conclusion and future work}\label{sec:con}
+%Visualizing large trajectory dataset is challenge due to two reasons: visual clutter and long rendering time.
+%Data sampling technique, an effective method in reducing the rendering time by shrinking the data size, has been applied in a variety of data.
+%However, very few work target at the trajectory sampling especially from the perspective of visualization.
+%The most commonly used sampling method, uniform random sampling technique, always generate results with very poor visual quality because very few trajectories located at margin regions can be preserved.
+%We fill the gap by proposing a novel sampling techniques $\avats$ which guarantees the visual quality at overview and reduce the visual clutter at the detail view. The technique characteristics and a series of parameters setting are discussed.
+%We compare $\avats$ with uniform random sampling in regarding to visual quality preservation and time-usage. We evaluate the effectiveness of proposed method by applying our method to different dataset and conducting users studies on specific interactive trajectory exploration tasks.
+%Even though it is recommended to use our method with caching techniques, our experience in the experiment shows that a faster algorithm will be more user friendly for the real world ad-hoc exploration tasks. For future work, we first plan to reduce the time usage by leveraging the advanced database techniques such as the indexing technique or use GPU acceleration.
+%In addition, there are several directions can be further explored to enrich the information presented by the visualization.
+%First we will develop different color encoding schema to present the spatial distribution of trajectory more precisely.
+%In current schema, the color of one trajectory is the same, thus the color of the long trajectories may mislead the users because they pass  through many regions with different level of the traffic crowdedness. One solution is to use gradient color schema to encode the trajectories.
+%Another interesting direction is to extend the approach to support the mulit-class characteristics which is a commonly existed in variety of trajectory dataset.
+In this paper, we present a novel sampling {technique} $\avats$ which guarantees the visual fidelity at overview and reduce the visual clutter at the detail views.
+We evaluate the effectiveness of the proposed method by applying our approaches to different dataset and conducting extensive user studies on three trajectory exploration tasks.
+There are several promising future directions, e.g., (i) improving the visual fidelity by considering the trajectory segments sampling instead of the whole trajectories;
+and (ii) developing advance color encoding schemas to present the spatial distribution of trajectories more precisely.
+%extending our approaches to support the specific trajectory features such as mulit-class characteristics.
+
+%we focus on the sampling approach of trajectory segments other than the whole trajectories to achieve higher visual fidelity.
+%We will also develop different color encoding schema to present the spatial distribution of trajectories more precisely. Currently, the color of one trajectory keep the same, thus the color of the long trajectories may mislead the users because they may pass through many regions with different traffic crowdedness.
+%We also consider to extend our approach to support the specific trajectory features such as mulit-class characteristics. 

@@ -1,0 +1,88 @@
+\section{Problem Statement}\label{sec:pro}
+In this section, we first define our research problem in Section~\ref{sec:def} formally.
+Section~\ref{sec:hard} analyzes the hardness of our research problem.
+
+\subsection{Problem Definition}\label{sec:def}
+As we analyzed in Section~\ref{sec:intro}, the large-scale (e.g., hundreds of millions GPS points) line-based trajectory visualization problem is very challenging due to the large data size and limited rendering capability of graphics devices.
+To make matters worse, the visualization result of large-scale trajectory dataset suffers visual clutter seriously.
+In this work, we focus on how to visualize large-scale trajectory dataset efficiently and effectively.
+In particular, our objective is to devise a visual fidelity guaranteed sampling method for large trajectory data visualization.
+The major challenges to achieve this goal are:
+(i) how to define visual fidelity theoretically? (ii) how to guarantee the visual fidelity of the sampling-based visualization result?
+We commence our presentation by defining our research problem formally as follows.
+
+\begin{problem}[Large-scale trajectory visualization problem]\label{prob:def}
+Given a large-scale trajectory dataset $\D$ and a sampling rate $\alpha$,
+the trajectory visualization problem is selecting a subset of trajectories $\oR \subseteq \D$ with $|\oR| \leq \alpha |\D|$,
+such that visual fidelity loss function $loss(\oR,\D)$ is minimized.
+\end{problem}
+
+%From the user’s perspective, there are many ways to define the loss function $loss$ between the visualization result qualities of the sampled subset $\oR$ and the whole dataset $\D$.
+%For example, \cite{park2016visualization} defined point-based loss function for very large scatter points visualization.
+%However, it is not applicable for trajectory data visualization.
+%In order to address that, we propose an novel loss function for trajectory visualization problem.
+
+
+The key to solving the large-scale trajectory visualization problem (see Problem~\ref{prob:def}) is defining the visual fidelity loss function properly.
+Intuitively, the visual fidelity of the sampled visualization results $\oR$ w.r.t. the original dataset $\D$ depends on the user specified visualization level of details (a.k.a., LOD).
+Given an empty canvas (e.g., displaying device) with a user specified level of details,
+the visualization process is rendering the trajectories into canvas with the given level of details, e.g., the number of pixels in each row and each column.
+Considering a trajectory data set $\D$ and a subset of trajectories $\oR \subseteq \D$,
+the visual fidelity loss between $\oR$ and $\D$ is defining as the different pixels of the visualization results about $\oR$ and $\D$ in the canvas with specified LOD.
+We then define the visual fidelity loss function of sampling-based trajectory visualization problem as $loss(\D, \oR) = \frac{|\V(\D) - \V(\oR)|}{|\V(\D)|}$,
+where $\V()$ measures the rendered pixels in the canvas of the input trajectory dataset.
+
+Therefore, given a trajectory data set $\D$ and a sampling rate $\alpha$,
+our research objective is finding subset $\oR$, such that  the visualization fidelity loss function $loss(\D, \oR)$ is minimized:
+$$ \min_{\oR \subseteq \D, |\oR| \leq \alpha |\D|}  loss(\D, \oR) =  \frac{|\V(\D) - \V(\oR)|}{|\V(\D)|}. $$ %\\ %\nonumber
+
+
+%  \Leftrightarrow  & \min_{\oR \subseteq \D, |\oR| = k}  \V(\D) - \V(\oR) \\ \nonumber
+%  \Leftrightarrow  & \min_{\oR \subseteq \D, |\oR| = k}  \sum_{\forall \D_i \in \D} \V(\D_i) - \V(\oR)
+%Intuitively, the visualization quality from user's perspective highly depends on the resolution of displaying device,
+%e.g., the number of distinct pixels in each dimension that can be displayed.
+
+%Given a high resolution displaying device, data objects set $\D$, and a subset of data objects $\oR \subseteq \D$.
+%The visualization quality loss between $\oR$ and $\D$ is defining as the different pixels of the visualization results of $\oR$ and $\D$ in the given display device.
+%Given a trajectory data set $\D$ and an integer $k$,  our research objective is selecting a sized-$k$ subset of trajectories which minimize
+%the visualization quality loss function $loss(\D, \oR)$.
+%Formally, the loss function is defined as $loss(\D, \oR) = \V(\D) - \V(\oR)$.
+
+
+
+\subsection{Hardness Analysis}\label{sec:hard}
+For the sake of presentation, we analyze the hardness of our research objective with a simple render manner of visualization result.
+We are aware there exist complex rendering schemes, e.g., different pixels has different colors, we will consider them shortly.
+In particular, for each pixel in the canvas with simple render manner, it will be rendered if there is a trajectory pass through it, otherwise it will not be rendered.
+Suppose each pixel in the canvas has an unique id, let $\MU$ be the universal set of all pixels in the canvas.
+For each trajectory $t_i \in \D$, it consists of a set of pixels in the canvas.
+In other words, the pixel set of each trajectory $t_i \in \D$ is a subset of $\MU$.
+Consequently, the pixel set of the selected trajectory set $\oR$ is also a subset of $\MU$ as $\oR = \cup_{t_i \in \oR} t_i$.
+
+
+Our research objective is minimizing loss function $loss(\D, \oR) =  \frac{|\V(\D) - \V(\oR)|}{|\V(\D)|}$ subject to $\oR \subseteq \D$ and $|\oR| \leq \alpha |\D|$.
+Given an empty canvas, the visualized/rendered pixels of the input trajectory dataset $\D$ is a constant set, denotes as $\mathsf{C}$.
+
+Hence, our research objective of Problem~\ref{prob:def} can be transformed as follows:
+\begin{align}\label{eqn:obj2} \nonumber
+\text{Objective}: & \min_{\oR \subseteq \D, |\oR| = \alpha |\D|}  \frac{|\V(\D) - \V(\oR)|}{|\V(\D)|} \Leftrightarrow \min_{\oR \subseteq \D, |\oR| = \alpha |\D|}  \frac{|\mathsf{C} - \V(\oR)|}{|\mathsf{C}|}  \\ \nonumber %
+& \Leftrightarrow \min_{\oR \subseteq \D, |\oR| = \alpha |\D|}   - |\V(\oR)| \Leftrightarrow \max_{\oR \subseteq \D, |\oR| = \alpha |\D|}  |\V(\oR)|  \\ \nonumber
+& \Leftrightarrow \max_{\oR \subseteq \D, |\oR| = \alpha |\D|} | \cup_{t_i \in \oR} t_i |
+\end{align}
+
+It is equivalent to the well-known set cover maximization problem.
+Specifically, given an integer $k = \alpha |\D|$, and a collection trajectory pixel set $\D = \{t_1, t_2, \cdots, t_n \}$ with $\forall t_i \subset \MU$,
+the objective of the set cover maximization problem is finding a subset $\oR \subset \D$ such that $|\oR| \leq k$ and the number of covered pixels in $|\cup_{t_i \in \oR} t_i|$ is maximized.
+We omit the proof of its NP-hardness, as it has been shown in~\cite{setcover}.
+
+
+%It is equivalent to select sized-$k$ trajectory set $\oR$ from $\D$ which $\cup_{\oR_i \in \oR} \oR_i$ is maximized.
+%It is a NP-hard problem as we proved in Lemma~\ref{lem:np}.
+
+%\begin{lemma}[NP hard]~\label{lem:np}
+%Given a trajectory dataset $\D$ and an integer $k$,
+%The sampling-based trajectory visualization problem (see Problem~\ref{prob:def}) is NP-hard.
+%\end{lemma}
+
+%We omit the proof of Lemma~\ref{lem:np} as it is a typical set cover maximization problem\footnote{\url{https://en.wikipedia.org/wiki/Maximum_coverage_problem}}, which is a well-known NP-hard problem in literature.
+

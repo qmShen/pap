@@ -1,0 +1,163 @@
+% VLDB template version of 2020-03-05 enhances the ACM template, version 1.7.0:
+% https://www.acm.org/publications/proceedings-template
+% The ACM Latex guide provides further information about the ACM template
+\documentclass[sigconf, nonacm]{acmart}
+%% The following content must be adapted for the final version
+% paper-specific
+
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{balance}% for  \balance command ON LAST PAGE  (only there!)
+\usepackage{algorithm, algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage{tabu}
+\usepackage{balance}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subfigure}
+%\usepackage{times}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+
+\newcommand\vldbdoi{XX.XX/XXX.XX}
+\newcommand\vldbpages{XXX-XXX}
+% issue-specific
+\newcommand\vldbvolume{14}
+\newcommand\vldbissue{1}
+\newcommand\vldbyear{2020}
+% should be fine as it is
+\newcommand\vldbauthors{\authors}
+\newcommand\vldbtitle{\shorttitle}
+
+%
+\newtheorem{problem}{Problem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Bo}[1]{{\color{red} Bo: #1}}
+% \newcommand{\QM}[1]{{\color{blue} QM: #1}}
+\newcommand{\QM}[1]{{\color{blue}{#1}}}
+
+\newcommand{\D}{\mathsf{T}}
+\newcommand{\V}{\mathsf{V}}
+\newcommand{\oR}{\mathsf{R}}
+\newcommand{\MU}{\mathsf{U}}
+\newcommand{\vats}{\mathsf{VFGS}}
+\newcommand{\rand}{\mathsf{RAND}}
+\newcommand{\full}{\mathsf{FULL}}
+\newcommand{\avats}{\mathsf{VFGS}^{+}}
+\newcommand{\cavats}{\mathsf{VFGS}^{+}\mathsf{CE}}
+\newcommand{\sz}{\textsf{Shenzhen}}
+\newcommand{\pt}{\textsf{Porto}}
+\newcommand{\trim}{\vspace{-2mm}}
+
+\newcommand{\stitle}[1]{\vspace*{0.4em}\noindent{\bf #1:\/}}
+\newcommand{\sstitle}[1]{\vspace*{0.4em}\noindent{\bf #1\/.}}
+
+
+\newcommand{\squishlist}{
+ \begin{list}{$\bullet$}
+ { \setlength{\itemsep}{0pt}
+   \setlength{\parsep}{3pt}
+   \setlength{\topsep}{3pt}
+   \setlength{\partopsep}{0pt}
+   \setlength{\leftmargin}{1.2em}
+   \setlength{\labelwidth}{1em}
+   \setlength{\labelsep}{0.6em}
+ }
+}
+\newcommand{\squishend}{
+ \end{list}
+}
+
+\settopmatter{printfolios=true}
+
+
+
+
+
+\begin{document}
+\title{Visual Fidelity Guaranteed Sampling for \\ Large Trajectory Data Visualization}
+
+%\author{Qiaomu Shen$^{*}$,\quad Chuan Yang$^{*}$,\quad Chaozu Zhang$^{*}$,\quad Dan Zeng$^{\dag}$, \quad Wei Zeng$^{\ddag}$, \quad Bo Tang$^{*}$}
+
+\affiliation{
+  \institution{Qiaomu Shen$^{\dag}$,\quad Chuan Yang$^{\dag}$,\quad Chaozu Zhang$^{\dag}$,\quad Dan Zeng$^{\ddag}$, \quad Wei Zeng$^{\$}$, \quad Bo Tang$^{\dag}$}
+  \institution{$^{\dag}$ Department of Computer Science and Engineering, Southern University of Science and Technology}
+  \mbox{qshen@connect.ust.hk, \{11612732@mail,11712021@mail,tangb3@\}sustech.edu.cn} \\
+  \institution{$^{\ddag}$ Electrical Engineering, Mathematics and Computer Science, University of Twente}
+  \institution{$^{\$}$ Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences}
+  \mbox{d.zeng@utwente.nl, zengwei81@gmail.com}
+  %\email{{{11711004, 11712532, 11613015}@mail.,tangb3@}sustech.edu.cn}
+  %\mbox{qshen@connect.ust.hk, \{11612732@mail,11712021@mail,tangb3@\}sustech.edu.cn, d.zeng@utwente.nl, zengwei81@gmail.com}
+}
+
+\renewcommand{\shortauthors}{Qiaomu Shen, et al.}
+\renewcommand{\shorttitle}{Paper ID: xxx}
+
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+Visualizing large-scale trajectory data is the core subroutine in many smart city applications, e.g., traffic management, route recommendation.
+However, it suffers from limited rendering capability and visual clutter issues.
+Sampling can effectively mitigate the issues, yet existing methods have an attenuating effect on visual fidelity.
+In this work, we propose visual fidelity guaranteed sampling techniques for line-based visualization of large trajectories.
+We first define a pixel-based fidelity loss function to capture the visual difference between two visualizations.
+We prove that it is NP-hard to select a sized-$k$ subset of trajectories with minimal visual fidelity loss.
+Next, we devise an approximation algorithm $\vats$ with a suite of optimization techniques, which returns fidelity-guaranteed visualizations efficiently.
+Moreover, we propose $\avats$ which improves the effectiveness of $\vats$ by taking data distribution and human perception into consideration.
+We conduct extensive experimental studies to demonstrate the effectiveness and efficiency of our methods on real-world trajectory datasets.
+In addition, comprehensive user studies further illustrate the superiority of our proposals in various applications, e.g., traffic flow comparison, and reachable route inspection.
+\end{abstract}
+
+\maketitle
+
+
+\trim
+
+
+\begingroup\small\noindent\raggedright\textbf{PVLDB Reference Format:}\\
+\shortauthors. Visual Fidelity Guaranteed Sampling for Large Trajectory Data Visualization. PVLDB, \vldbvolume(\vldbissue): \vldbpages, \vldbyear.\\
+\href{https://doi.org/\vldbdoi}{doi:\vldbdoi}
+\endgroup
+
+\trim \trim \trim
+
+\begingroup
+\renewcommand\thefootnote{}\footnote{\noindent
+This work is licensed under the Creative Commons BY-NC-ND 4.0 International License. Visit \url{https://creativecommons.org/licenses/by-nc-nd/4.0/} to view a copy of this license. For any use beyond those covered by this license, obtain permission by emailing \href{mailto:info@vldb.org}{info@vldb.org}. Copyright is held by the owner/author(s). Publication rights licensed to the VLDB Endowment. \\
+\raggedright Proceedings of the VLDB Endowment, Vol. \vldbvolume, No. \vldbissue\ %
+ISSN 2150-8097. \\
+\href{https://doi.org/\vldbdoi}{doi:\vldbdoi} \\
+}\addtocounter{footnote}{-1}\endgroup
+%%% VLDB block end %%%
+
+\input{sections/Introduction.tex}
+
+\input{sections/RelatedWork.tex}
+
+\input{sections/ProblemFormulation.tex}
+
+\input{sections/ProblemSolving.tex}
+
+\input{sections/Evaluation.tex}
+
+\input{sections/ConclusionFutureWork.tex}
+
+
+
+%\begin{acks}
+% This work was supported by the [...] Research Fund of [...] (Number [...]). Additional funding was provided by [...] and [...]. We also thank [...] for contributing [...].
+%\end{acks}
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{ref}
+
+\end{document}
+\endinput

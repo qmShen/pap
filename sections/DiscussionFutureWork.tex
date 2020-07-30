@@ -1,0 +1,21 @@
+\section{Conclusion and future work}\label{sec:con}
+
+Visualizing large trajectory dataset is challenge as visual clutter, long rendering time and large data size.
+Sampling techniques are widely employed to reduce the rendering time via shrinking the data size.
+However, very few work target at the trajectory sampling especially with result theoretical guarantee from the perspective of visualization.
+%The most commonly used sampling method, uniform random sampling technique, always generate results with very poor visual quality because very few trajectories located at margin regions can be preserved.
+We fill the gap by proposing advance visual fidelity guarantee sampling approaches $\avats$ and $\cavats$, which offer theoretical visual fidelity guarantee at the sampled results.
+%The technique characteristics and a series of parameters setting are discussed.
+%We compare $\avats$ with uniform random sampling in regarding to visual quality preservation and time-usage.
+We evaluate the effectiveness of proposals  by extensive experimental studies, includes case study, user study, and qualitative study.
+
+%applying our method to different dataset and conducting users studies on specific interactive trajectory exploration tasks.
+
+
+%Even though it is recommended to use our method with caching techniques,
+Our experience in the experiment shows that a faster algorithm will be more user friendly for the real world ad-hoc exploration tasks.
+For future work, we plan to improve the efficiency by leveraging the advanced database techniques such as the indexing technique or use GPU acceleration.
+In addition, there are several directions can be further explored to enrich the information presented by the visualization.
+First we will develop different color encoding schema to present the spatial distribution of trajectory more precisely.
+In current schema, the color of one trajectory is the same, thus the color of the long trajectories may mislead the users because they pass through many regions with different level of the traffic crowdedness. One solution is to use gradient color schema to encode the trajectories.
+Another interesting direction is to extend the approach to support the mulit-class characteristics which is a commonly existed in variety of trajectory dataset. 
